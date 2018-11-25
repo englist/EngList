@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+# Google App Engine generated folder
+appengine-generated/
+=======
+node_modules
+.DS_Store
+*.pyc
+dist
+tests
+>>>>>>> First commit

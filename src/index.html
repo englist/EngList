@@ -1,0 +1,232 @@
+<!--
+
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="englist" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta id="theme-color" name="theme-color" content="#4527A0">
+    <title>EngList</title>
+    <style>
+    {% include "dist/styles/voicememo-core.css" %}
+    </style>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/images/chrome-touch-icon-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="/images/chrome-touch-icon-384x384.png" sizes="384x384" type="image/png">
+  </head>
+
+  <body class="{{ deeplink_class }}">
+
+    <header class="header">
+
+        <button tabindex="-1" class="header__menu js-toggle-menu">
+          Toggle nav menu
+        </button>
+
+        <h1 class="header__title">EngList</h1>
+    </header>
+
+    <main class="main js-main">
+      <div class="main__inner">
+        <section class="list-view js-list-view">
+
+
+        </section>
+      </div>
+
+    </main>
+
+    <aside class="empty-set-cta js-cta">
+    </aside>
+
+    <!-- The panel to sit beneath all other panels -->
+    <div class="view-underpanel js-underpanel">
+      <div class="view-underpanel__block"></div>
+    </div>
+
+    <section class="hidden record-view js-record-view">
+      <div class="record-view__panel">
+        <div class="record-view__panel-title">Record a new audio</div>
+        <div class="record-view__panel-mic">
+          <canvas class="record-view__volume-readout js-volume-readout"></canvas>
+        </div>
+
+        <button tabindex="-1" class="record-view__record-start-btn js-record-start-btn">Record</button>
+        <button tabindex="-1" class="record-view__record-stop-btn js-record-stop-btn" disabled>Stop recording</button>
+
+        <p class="record-view__warning">Please note: 1 minute of recording takes up ~10MB disk space. <a class="record-view__warning-link" target="_blank" href="https://aerotwist.com/blog/voice-memos/#codecs">Read why</a>.</p>
+
+        <button tabindex="-1" class="record-view__record-cancel-btn js-record-cancel-btn">Cancel</button>
+
+      </div>
+    </section>
+
+    <section class="hidden details-view js-details-view">
+
+      <div class="details-view__panel js-details-panel">
+        <div class="details-view__header js-details-panel-header">
+          <div class="details-view__header-buttons">
+            <button tabindex="-1" class="details-view__back js-back">Back</button>
+
+            <a class="details-view__download js-download">Download</a>
+            <button tabindex="-1" class="details-view__edit js-edit">Edit</button>
+            <button tabindex="-1" class="details-view__delete js-delete">Delete</button>
+          </div>
+          <canvas class="details-view__wave js-wave"></canvas>
+
+          <h1 class="details-view__title js-title"></h1>
+
+          <div class="details-view__playback">
+            <button tabindex="-1" class="details-view__playback-toggle js-playback-toggle">Toggle playback</button>
+            <canvas class="details-view__playback-progress js-playback-progress"></canvas>
+          </div>
+        </div>
+
+        <aside class="details-view__content">
+          <h1 class="details-view__description-title">Description</h1>
+          <div class="details-view__description js-description"></div>
+        </aside>
+
+      </div>
+
+      <div class="details-view__box-reveal js-box-reveal"></div>
+
+    </section>
+
+
+    <section class="hidden edit-view js-edit-view">
+
+      <div class="edit-view__panel js-edit-panel">
+        <form class="edit-view__edit-form js-edit-view__edit-form">
+
+          <div class="edit-view__header">
+            <label class="edit-view__edit-form-title-label edit-view__edit-form-title-label--collapsed" for="edit-view__edit-form-title">Title</label>
+            <input tabindex="-1" name="edit-view__edit-form-title" id="edit-view__edit-form-title" type="text" autocomplete="off">
+          </div>
+
+          <div class="edit-view__body">
+            <label class="edit-view__edit-form-description-label edit-view__edit-form-description-label--collapsed" for="edit-view__edit-form-description">Description</label>
+            <div tabindex="-1" contenteditable name="edit-view__edit-form-decription" id="edit-view__edit-form-description"></div>
+          </div>
+
+          <div class="edit-view__buttons">
+
+            <input tabindex="-1" class="edit-view__done js-done" type="submit" value="ok" />
+            <button tabindex="-1" class="edit-view__back js-back">Back</button>
+          </div>
+
+        </form>
+      </div>
+
+    </section>
+
+    <section class="side-nav js-side-nav">
+      <div class="side-nav__content js-side-nav-content">
+
+        <div class="side-nav__header">
+          <h1 class="side-nav__title">EngList</h1>
+        </div>
+
+        <div class="side-nav__body">
+          <button tabindex="-1" class='side-nav__delete-memos js-delete-memos'>Delete all audios</button>
+          <a tabindex="-1" target="_blank" href="https://github.com/englist/EngList/issues" class='side-nav__file-bug-report'>File a bug report</a>
+        </div>
+
+      <div class="side-nav__version">Version 0.0.1</div>
+      </div>
+    </section>
+
+    <aside class="toast-view"></aside>
+
+    <div class="edit-view__circular-reveal-container">
+      <div class="edit-view__circular-reveal edit-view__circular-reveal--collapsed js-circular-reveal"></div>
+    </div>
+
+    <aside class="dialog-view js-dialog">
+      <div class="dialog-view__panel">
+        <div class="dialog-view__panel-header">
+          <h1 class="dialog-view__panel-title js-title">How much wood would?</h1>
+          <p class="dialog-view__panel-message js-message">A woodchuck chuck if a woodchuck could chuck wood?</p>
+        </div>
+
+        <div class="dialog-view__panel-footer">
+          <button tabindex="-1" class="dialog-view__panel-button js-cancel">Cancel</button>
+          <button tabindex="-1" class="dialog-view__panel-button js-okay">Okay</button>
+        </div>
+      </div>
+    </aside>
+
+    <button tabindex="-1" class="new-recording-btn js-new-recording-btn">
+      New recording
+    </button>
+
+    <div class="loader">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <style>
+          #spinner {
+            box-sizing: border-box;
+            stroke: #673AB7;
+            stroke-width: 3px;
+            transform-origin: 50%;
+
+            -webkit-animation: line 1.6s cubic-bezier(0.4, 0.0, 0.2, 1) infinite, rotate 1.6s linear infinite;
+          }
+
+          @-webkit-keyframes rotate {
+
+            from {
+              transform: rotate(0)
+            }
+
+            to {
+              transform: rotate(450deg);
+            }
+          }
+
+          @-webkit-keyframes line {
+            0% {
+              stroke-dasharray: 2, 85.964;
+              transform: rotate(0);
+            }
+
+            50% {
+              stroke-dasharray: 65.973, 21.9911;
+              stroke-dashoffset: 0;
+            }
+
+            100% {
+              stroke-dasharray: 2, 85.964;
+              stroke-dashoffset: -65.973;
+              transform: rotate(90deg);
+            }
+          }
+        </style>
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+      </svg>
+    </div>
+
+    <script src="/scripts/voicememo-core.js" async defer></script>
+
+  </body>
+
+</html>
